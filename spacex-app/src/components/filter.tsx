@@ -29,8 +29,10 @@ const Filter = () => {
         onChange={(e) => {
           handleFilter(e.target.value);
         }}
+     
       >
-        <option value="default">All</option>
+        <option defaultValue={searchParams.get('value')?.toString()}
+        >{searchParams.get('value')?.toString()}</option>
         <option value="date">Date</option>
         <option value="upcoming">Upcoming</option>
         <option value="success">Success</option>
