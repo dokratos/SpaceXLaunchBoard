@@ -16,7 +16,7 @@ export default async function LaunchList({
   const data = await getLaunches(query, filter, currentPage);
 
   return (
-    <div>
+    <div className="md:grid md:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
       {data.map((launch: any) => {
       return (
         <LaunchCard 
@@ -25,7 +25,6 @@ export default async function LaunchList({
         rocketName={launch.rocket.rocket_name}
         missionName={launch.mission_name}
         image={launch.links.flickr_images}
-        success={launch.launch_success}
         date={launch.launch_date_local}
         />
       );
