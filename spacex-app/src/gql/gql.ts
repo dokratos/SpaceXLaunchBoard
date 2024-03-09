@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n    query Query {\n  launches {\n    mission_name\n    launch_date_local\n    launch_success\n    links {\n      flickr_images\n      mission_patch\n    }\n    rocket {\n      rocket_name\n    }\n    details\n    mission_id\n  }\n}\n": types.QueryDocument,
+    "\n       query Query {\n     launches {\n       mission_name\n       launch_date_local\n       launch_success\n       links {\n         flickr_images\n         mission_patch\n       }\n       rocket {\n         rocket_name\n       }\n       details\n       mission_id\n     }\n   }\n   ": types.QueryDocument,
 };
 
 /**
@@ -33,7 +33,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n    query Query {\n  launches {\n    mission_name\n    launch_date_local\n    launch_success\n    links {\n      flickr_images\n      mission_patch\n    }\n    rocket {\n      rocket_name\n    }\n    details\n    mission_id\n  }\n}\n"): (typeof documents)["\n    query Query {\n  launches {\n    mission_name\n    launch_date_local\n    launch_success\n    links {\n      flickr_images\n      mission_patch\n    }\n    rocket {\n      rocket_name\n    }\n    details\n    mission_id\n  }\n}\n"];
+export function graphql(source: "\n       query Query {\n     launches {\n       mission_name\n       launch_date_local\n       launch_success\n       links {\n         flickr_images\n         mission_patch\n       }\n       rocket {\n         rocket_name\n       }\n       details\n       mission_id\n     }\n   }\n   "): (typeof documents)["\n       query Query {\n     launches {\n       mission_name\n       launch_date_local\n       launch_success\n       links {\n         flickr_images\n         mission_patch\n       }\n       rocket {\n         rocket_name\n       }\n       details\n       mission_id\n     }\n   }\n   "];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
