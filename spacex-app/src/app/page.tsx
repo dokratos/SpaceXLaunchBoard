@@ -1,6 +1,31 @@
+"use client"
+
 import Image from "next/image";
+import { gql, useQuery } from '@apollo/client';
 
 export default function Home() {
+  const { data } = useQuery(
+    gql`
+    query Query {
+  launches {
+    mission_name
+    launch_date_local
+    launch_success
+    links {
+      flickr_images
+      mission_patch
+    }
+    rocket {
+      rocket_name
+    }
+    details
+    mission_id
+  }
+}
+`);
+
+
+  console.log('launches', data);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -111,3 +136,4 @@ export default function Home() {
     </main>
   );
 }
+
