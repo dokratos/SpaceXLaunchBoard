@@ -1,6 +1,5 @@
-import { gql } from '@apollo/client';
-import { getClient } from "@/lib/client";
-import LaunchCard from '@/components/LaunchCard';
+import { Suspense } from 'react';
+import LaunchList from '@/components/LaunchList';
 import Search from '@/components/Search';
 
 export default async function Home({
@@ -11,8 +10,8 @@ export default async function Home({
     page?: string;
   };
 }) {
-  const data = await getLaunches();
-  // console.log('launches', data);
+  const query = searchParams?.query || '';
+  const currentPage = Number(searchParams?.page) || 1;
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -24,45 +23,9 @@ export default async function Home({
           FILTER
         </div>
       </div>
-      
-      {data.map((launch: any) => {
-        return (
-          <LaunchCard 
-          key={launch.id}
-          id={launch.id}
-          missionName={launch.mission_name}
-          image={launch.links.flickr_images}
-          success={launch.launch_success}
-          />
-        );
-      })}
+      <Suspense key={query + currentPage} >
+      <LaunchList query={query} currentPage={currentPage}/>
+      </Suspense>
     </main>
   );
-}
-
-export async function getLaunches() {
-  const client = getClient();
-  const { data } = await client.query({
-    query: gql`
-      query Launches {
-        launches {
-          id
-          launch_date_local
-          launch_success
-          mission_name
-          mission_id
-          details
-          rocket {
-            rocket_name
-          }
-          links {
-            flickr_images
-            mission_patch
-            mission_patch_small
-          }
-        }
-      }
-   `});
-
-  return data.launches;
 }
