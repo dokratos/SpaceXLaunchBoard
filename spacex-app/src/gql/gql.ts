@@ -14,6 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n      query Launches {\n        launches {\n          id\n          launch_date_local\n          launch_success\n          mission_name\n          mission_id\n          details\n          rocket {\n            rocket_name\n          }\n          links {\n            flickr_images\n            mission_patch\n            mission_patch_small\n          }\n        }\n      }\n   ": types.LaunchesDocument,
+    "\nquery Query($launchId: ID!) {\nlaunch(id: $launchId) {\n  launch_date_local\n  mission_name\n  rocket {\n    rocket_name\n  }\n  launch_site {\n    site_name\n  }\n  links {\n    flickr_images\n  }\n}\n}": types.QueryDocument,
 };
 
 /**
@@ -34,6 +35,10 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n      query Launches {\n        launches {\n          id\n          launch_date_local\n          launch_success\n          mission_name\n          mission_id\n          details\n          rocket {\n            rocket_name\n          }\n          links {\n            flickr_images\n            mission_patch\n            mission_patch_small\n          }\n        }\n      }\n   "): (typeof documents)["\n      query Launches {\n        launches {\n          id\n          launch_date_local\n          launch_success\n          mission_name\n          mission_id\n          details\n          rocket {\n            rocket_name\n          }\n          links {\n            flickr_images\n            mission_patch\n            mission_patch_small\n          }\n        }\n      }\n   "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\nquery Query($launchId: ID!) {\nlaunch(id: $launchId) {\n  launch_date_local\n  mission_name\n  rocket {\n    rocket_name\n  }\n  launch_site {\n    site_name\n  }\n  links {\n    flickr_images\n  }\n}\n}"): (typeof documents)["\nquery Query($launchId: ID!) {\nlaunch(id: $launchId) {\n  launch_date_local\n  mission_name\n  rocket {\n    rocket_name\n  }\n  launch_site {\n    site_name\n  }\n  links {\n    flickr_images\n  }\n}\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
