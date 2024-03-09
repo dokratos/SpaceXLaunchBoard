@@ -1,17 +1,19 @@
 import React from 'react'
 import { gql } from '@apollo/client';
 import { getClient } from "@/lib/client";
-import LaunchCard from './LaunchCard';
+import LaunchCard from './card';
 import { SimpleLaunch } from '@/lib/definitions';
 
 export default async function LaunchList({
   query,
+  filter,
   currentPage,
 }: {
   query: string;
+  filter: string;
   currentPage: number;
 }) {
-  const data = await getLaunches(query, currentPage);
+  const data = await getLaunches(query, filter, currentPage);
 
   return (
     <div>
@@ -33,19 +35,19 @@ export default async function LaunchList({
 
 export async function getLaunches(
   query: string,
+  filter: string,
   currentPage: number,
 ) {
   const client = getClient();
   const { data } = await client.query({
     query: gql`
-      query Launches {
+      query Query {
         launches {
-          id
           launch_date_local
           launch_success
+          upcoming
+          id
           mission_name
-          mission_id
-          details
           rocket {
             rocket_name
           }
@@ -66,6 +68,8 @@ export async function getLaunches(
       return launch.rocket.rocket_name.match(regex);
     })
   }
+
+  // if (filter)
 
   return launches;
 }

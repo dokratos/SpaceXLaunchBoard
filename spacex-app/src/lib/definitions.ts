@@ -3,8 +3,7 @@ export type SimpleLaunch = {
   launch_date_local: string,
   launch_success: boolean,
   mission_name: string,
-  mission_id: string,
-  details: string,
+  upcoming: boolean,
   rocket : { rocket_name: string },        
   links : {
     flickr_images: string[],

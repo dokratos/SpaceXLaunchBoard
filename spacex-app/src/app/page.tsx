@@ -1,16 +1,19 @@
 import { Suspense } from 'react';
-import LaunchList from '@/components/LaunchList';
-import Search from '@/components/Search';
+import LaunchList from '@/components/list';
+import Search from '@/components/searchBar';
+import Filter from '@/components/filter';
 
 export default async function Home({
   searchParams,
 }: {
   searchParams?: {
     query?: string;
+    filter?: string;
     page?: string;
   };
 }) {
   const query = searchParams?.query || '';
+  const filter = searchParams?.filter || '';
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
@@ -18,13 +21,10 @@ export default async function Home({
       <h1>space-x-launches</h1>
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         <Search placeholder='...'/>
-
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          FILTER
-        </div>
+        <Filter />
       </div>
       <Suspense key={query + currentPage} >
-      <LaunchList query={query} currentPage={currentPage}/>
+        <LaunchList query={query} currentPage={currentPage} filter={filter}/>
       </Suspense>
     </main>
   );
