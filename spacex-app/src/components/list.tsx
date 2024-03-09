@@ -26,6 +26,7 @@ export default async function LaunchList({
         missionName={launch.mission_name}
         image={launch.links.flickr_images}
         success={launch.launch_success}
+        date={launch.launch_date_local}
         />
       );
     })}
@@ -60,16 +61,31 @@ export async function getLaunches(
       }
    `});
 
-  let launches = data.launches;
+  let launches = [...data.launches];
 
   if (query.length > 2) {
     const regex = new RegExp(query, 'i');
-    launches = data.launches.filter((launch: SimpleLaunch) => {
+    launches = launches.filter((launch: SimpleLaunch) => {
       return launch.rocket.rocket_name.match(regex);
     })
   }
 
-  // if (filter)
+  if (filter === "date") {
+    launches = launches.sort((a: SimpleLaunch, b: SimpleLaunch) => new Date(b.launch_date_local).getTime() - new Date(a.launch_date_local).getTime());
+  }
+
+  if (filter === "upcoming") {
+    launches = launches.filter((launch: SimpleLaunch) => {
+      return !!launch.upcoming;
+    })
+    launches.sort((a: SimpleLaunch, b: SimpleLaunch) => new Date(b.launch_date_local).getTime() - new Date(a.launch_date_local).getTime());
+  }
+
+  if (filter === "success") {
+    launches = launches.filter((launch: SimpleLaunch) => {
+      return !!launch.launch_success;
+    })
+  }
 
   return launches;
 }
