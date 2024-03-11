@@ -26,6 +26,7 @@ export default async function LaunchList({
         missionName={launch.mission_name}
         image={launch.links.flickr_images}
         date={launch.launch_date_local}
+        upcoming={launch.upcoming}
         />
       );
     })}
@@ -44,7 +45,6 @@ export async function getLaunches(
       query Query {
         launches {
           launch_date_local
-          launch_success
           upcoming
           id
           mission_name
@@ -60,7 +60,7 @@ export async function getLaunches(
       }
    `});
 
-  let launches = [...data.launches];
+  let launches: SimpleLaunch[] = [...data.launches];
 
   if (query.length > 2) {
     const regex = new RegExp(query, 'i');
@@ -80,11 +80,11 @@ export async function getLaunches(
     launches.sort((a: SimpleLaunch, b: SimpleLaunch) => new Date(b.launch_date_local).getTime() - new Date(a.launch_date_local).getTime());
   }
 
-  if (filter === "success") {
-    launches = launches.filter((launch: SimpleLaunch) => {
-      return !!launch.launch_success;
-    })
-  }
+  // if (filter === "success") {
+  //   launches = launches.filter((launch: SimpleLaunch) => {
+  //     return !!launch.launch_success;
+  //   })
+  // }
 
   return launches;
 }

@@ -8,19 +8,21 @@ import Link from "next/link";
 
 const GET_LAUNCH = gql`
 query Query($launchId: ID!) {
-launch(id: $launchId) {
-  launch_date_local
-  mission_name
-  rocket {
-    rocket_name
+  launch(id: $launchId) {
+    details
+    launch_date_local
+    mission_name
+    rocket {
+      rocket_name
+      rocket {
+        success_rate_pct
+      }
+    }
+    ships {
+      name
+      image
+    }
   }
-  launch_site {
-    site_name
-  }
-  links {
-    flickr_images
-  }
-}
 }`;
 
 const LaunchModal = () => {

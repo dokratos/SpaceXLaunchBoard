@@ -7,10 +7,11 @@ type LaunchCardProps = {
   rocketName: string,
   missionName: string,
   image: string[],
-  date: string
+  date: string,
+  upcoming: boolean
 }
 
-const LaunchCard = ({ id, rocketName, missionName, image, date }: LaunchCardProps) => {
+const LaunchCard = ({ id, rocketName, missionName, image, date, upcoming }: LaunchCardProps) => {
   const src = image[0] || 'https://farm9.staticflickr.com/8617/16789019815_f99a165dc5_o.jpg'
  
   return (
@@ -25,7 +26,7 @@ const LaunchCard = ({ id, rocketName, missionName, image, date }: LaunchCardProp
       <p className="font-medium text-xl leading-8">{missionName}</p>
       <p>{rocketName}</p>
       <p>{date}</p>
-
+      {upcoming ? <p>is upcoming!</p> : <>past!</>}
       <Link 
         href={`?modal=true&id=${id}`}
         >
