@@ -6,7 +6,7 @@ import {useSearchParams, usePathname} from "next/navigation";
 import { gql, useQuery } from "@apollo/client";
 import Link from "next/link";
 
-const GET_LAUNCH = gql`
+export const GET_LAUNCH = gql`
 query Query($launchId: ID!) {
   launch(id: $launchId) {
     details
@@ -27,17 +27,20 @@ const LaunchModal = () => {
   const pathname = usePathname();
   const id = searchParams.get("id");
 
-  const { data, error } = useQuery(GET_LAUNCH, {
+  const { data, error, loading } = useQuery(GET_LAUNCH, {
     variables: {
       "launchId": id
     }
   });
 
-  if (error) {
-    console.error(error);
+  if (loading) {
+    return <p>Loading...</p>
   }
 
-  const src = data?.launch?.links?.flickr_images[0] || 'https://farm9.staticflickr.com/8617/16789019815_f99a165dc5_o.jpg'
+  if (error) {
+    console.error(error);
+    if (error) return <p>{error.message}</p>;
+  }
 
   return (
     <Suspense fallback={<>Loading...</>}>
@@ -47,7 +50,7 @@ const LaunchModal = () => {
             <div className="bg-white h-16 relative rounded">
               <p className="font-bold uppercase absolute left-5 top-4">MISSION {data?.launch.mission_name}</p>
             </div>
-            <Image src={src} 
+            <Image src={data?.launch?.links?.flickr_images[0] || 'https://farm9.staticflickr.com/8617/16789019815_f99a165dc5_o.jpg'} 
               alt='Launch image..' 
               width={400}
               height={400}

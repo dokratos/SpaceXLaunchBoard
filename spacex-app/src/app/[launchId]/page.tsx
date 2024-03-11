@@ -49,12 +49,17 @@ export default async function LaunchDetail({
 }) {
 
   const client = getClient();
-  const { data, errors } = await client.query({
+  const { data, error } = await client.query({
     query: GET_LAUNCH_DETAILED,
     variables: {
       "launchId": params.launchId
     }
   });
+
+  if (error) {
+    console.error(error);
+    if (error) return <p>{error.message}</p>;
+  }
 
   const launch: PageDetailLaunch = data?.launch;
 
