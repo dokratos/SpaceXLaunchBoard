@@ -48,9 +48,5 @@ export type ModalDetailLaunch = {
     rocket: {
       success_rate_pct: number,
     }
-  },
-  ships: {
-    name: string,
-    image: string,
   }
 }

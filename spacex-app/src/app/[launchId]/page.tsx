@@ -56,12 +56,10 @@ export default async function LaunchDetail({
     }
   });
 
-  const launch = data?.launch;
-
-  console.log(data);
+  const launch: PageDetailLaunch = data?.launch;
 
   const src = launch?.links?.flickr_images[0] || 'https://farm9.staticflickr.com/8617/16789019815_f99a165dc5_o.jpg'
-  console.log(launch?.links?.flickr_images[0]);
+
   return (
     <main className="flex min-h-screen flex-col justify-between ">
       <h1 className="flex-start text-[#32324D] font-bold text-3xl h-16 p-16">{launch?.mission_name}</h1>
@@ -74,14 +72,15 @@ export default async function LaunchDetail({
           className="rounded"
           ></Image>
         <article>
-          <div className='bg-[#F6F6F9] w-full rounded min-h-48 p-8 sm:h-1/3'>
+          <div className='bg-[#F6F6F9] w-full rounded min-h-64 p-8 sm:h-1/3'>
             <p className="text-[#A5A5BA] font-bold text-base">DATE</p>
             <p>{launch?.launch_date_local}</p>
             <p className="text-[#A5A5BA] font-bold text-base mt-6 ">LOCATION</p>
             <p>{launch?.launch_site?.site_name || "unknown location"}</p>
+            <p className="text-[#A5A5BA] font-bold text-base mt-6 ">ROCKET</p>
+            <p>{launch?.rocket?.rocket.name}</p>
           </div>
           <p className="text-[#666687] text-base font-normal mt-6 px-2">{launch?.details}</p>
-          <p>{launch?.rocket.rocket_name}</p>
         </article>
       </section>
       <div className="bg-[#F6F6F9] w-full h-16 fixed bottom-0 flex justify-end">

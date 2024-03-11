@@ -7,13 +7,11 @@ import { SimpleLaunch } from '@/lib/definitions';
 export default async function LaunchList({
   query,
   filter,
-  currentPage,
 }: {
   query: string;
   filter: string;
-  currentPage: number;
 }) {
-  const data = await getLaunches(query, filter, currentPage);
+  const data = await getLaunches(query, filter);
 
   return (
     <div className="md:grid md:gap-4 md:grid-cols-2 lg:grid-cols-4 mb-12">
@@ -37,7 +35,6 @@ export default async function LaunchList({
 export async function getLaunches(
   query: string,
   filter: string,
-  currentPage: number,
 ) {
   const client = getClient();
   const { data } = await client.query({

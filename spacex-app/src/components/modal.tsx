@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react'
+import React, { Suspense } from 'react'
 import Image from 'next/image'
 import {useSearchParams, usePathname} from "next/navigation";
 import { gql, useQuery } from "@apollo/client";
@@ -18,10 +18,6 @@ query Query($launchId: ID!) {
         success_rate_pct
       }
     }
-    ships {
-      name
-      image
-    }
   }
 }`;
 
@@ -31,22 +27,20 @@ const LaunchModal = () => {
   const pathname = usePathname();
   const id = searchParams.get("id");
 
-  const { data, loading, error } = useQuery(GET_LAUNCH, {
+  const { data, error } = useQuery(GET_LAUNCH, {
     variables: {
       "launchId": id
     }
   });
 
-  if (loading) {
-    return <div>Loading...</div>
-  }
   if (error) {
     console.error(error);
   }
-  console.log(data);
-  const src =  'https://farm9.staticflickr.com/8617/16789019815_f99a165dc5_o.jpg'
+
+  const src = data?.launch?.links?.flickr_images[0] || 'https://farm9.staticflickr.com/8617/16789019815_f99a165dc5_o.jpg'
+
   return (
-    <>
+    <Suspense fallback={<>Loading...</>}>
     {modal &&
         <dialog className="fixed left-0 top-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-auto backdrop-blur flex">
           <div className="bg-[#EAEAEF] rounded-lg sm:w-1/2 w-full m-auto p-8 grid grid-cols-1 gap-4 text-[#32324D] text-sm">
@@ -73,7 +67,7 @@ const LaunchModal = () => {
           </div>
         </dialog>
     }
-</>
+</Suspense>
   )
 }
 
