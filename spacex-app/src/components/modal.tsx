@@ -49,7 +49,7 @@ const LaunchModal = () => {
     <>
     {modal &&
         <dialog className="fixed left-0 top-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-auto backdrop-blur flex">
-          <div className="bg-[#EAEAEF] rounded-lg w-1/2 m-auto p-8 grid grid-cols-1 gap-4 text-[#32324D] text-sm">
+          <div className="bg-[#EAEAEF] rounded-lg sm:w-1/2 w-full m-auto p-8 grid grid-cols-1 gap-4 text-[#32324D] text-sm">
             <div className="bg-white h-16 relative rounded">
               <p className="font-bold uppercase absolute left-5 top-4">MISSION {data?.launch.mission_name}</p>
             </div>
