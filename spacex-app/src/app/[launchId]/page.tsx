@@ -1,8 +1,7 @@
-"use client";
-
 import React from 'react'
 import Image from 'next/image'
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+import { getClient } from "@/lib/client";
 import Link from "next/link";
 import { PageDetailLaunch } from '@/lib/definitions';
 
@@ -20,15 +19,6 @@ query Query($launchId: ID!) {
       mission_patch_small
     }
     mission_name
-    ships {
-      image
-      model
-      name
-      missions {
-        flight
-        name
-      }
-    }
     rocket {
       rocket {
         company
@@ -52,14 +42,15 @@ query Query($launchId: ID!) {
   }
 }`
 
-export default function LaunchDetail({
+export default async function LaunchDetail({
   params,
 }: {
   params: { launchId: string };
 }) {
 
-
-  const { data } = useQuery(GET_LAUNCH_DETAILED, {
+  const client = getClient();
+  const { data, errors } = await client.query({
+    query: GET_LAUNCH_DETAILED,
     variables: {
       "launchId": params.launchId
     }

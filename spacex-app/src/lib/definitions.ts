@@ -21,15 +21,6 @@ export type PageDetailLaunch = {
     mission_patch_small: string,
   }
   mission_name: string,
-  ships: {
-    image: string,
-    model: string,
-    name: string,
-    missions: {
-      flight: string,
-      name: string,
-    }
-  },
   rocket: {
     rocket: {
       company: string,

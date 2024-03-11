@@ -31,12 +31,16 @@ const LaunchModal = () => {
   const pathname = usePathname();
   const id = searchParams.get("id");
 
-  const { data } = useQuery(GET_LAUNCH, {
+  const { data, loading } = useQuery(GET_LAUNCH, {
     variables: {
       "launchId": id
     }
   });
 
+  if (loading) {
+    return <div>Loading...</div>
+  }
+  console.log(data);
   return (
     <>
     {modal &&

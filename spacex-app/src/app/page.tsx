@@ -17,9 +17,9 @@ export default async function Home({
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-16">
-      <h1>space-x-launches</h1>
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
+    <main className="flex min-h-screen flex-col justify-between p-16">
+      <h1 className="flex-start text-[#32324D] font-bold text-3xl h-20">SpaceX Launches</h1>
+      <div className="h-8 mb-8 z-10 max-w-5xl w-full items-center justify-between text-sm lg:flex">
         <Search placeholder='...'/>
         <Filter />
       </div>
