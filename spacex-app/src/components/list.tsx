@@ -77,11 +77,5 @@ export async function getLaunches(
     launches.sort((a: SimpleLaunch, b: SimpleLaunch) => new Date(b.launch_date_local).getTime() - new Date(a.launch_date_local).getTime());
   }
 
-  // if (filter === "success") {
-  //   launches = launches.filter((launch: SimpleLaunch) => {
-  //     return !!launch.launch_success;
-  //   })
-  // }
-
   return launches;
 }

@@ -49,12 +49,16 @@ export default async function LaunchDetail({
 }) {
 
   const client = getClient();
-  const { data, error } = await client.query({
+  const { data, error, loading } = await client.query({
     query: GET_LAUNCH_DETAILED,
     variables: {
       "launchId": params.launchId
     }
   });
+
+  if (loading || !data) {
+    return <p>Loading...</p>
+  }
 
   if (error) {
     console.error(error);
@@ -66,7 +70,7 @@ export default async function LaunchDetail({
   const src = launch?.links?.flickr_images[0] || 'https://farm9.staticflickr.com/8617/16789019815_f99a165dc5_o.jpg'
 
   return (
-    <main className="flex min-h-screen flex-col justify-between ">
+    <main className="flex min-h-screen flex-col">
       <h1 className="flex-start text-[#32324D] font-bold text-3xl h-16 p-16">{launch?.mission_name}</h1>
       <section className='sm:grid sm:grid-cols-2 sm:gap-6 flex-row p-16 mb-8'>
         <Image 
