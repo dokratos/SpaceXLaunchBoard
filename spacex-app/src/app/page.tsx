@@ -21,7 +21,7 @@ export default async function Home({
         <Search placeholder='Search by rocket name...'/>
         <Filter />
       </div>
-      <Suspense key={query}>
+      <Suspense key={query} fallback={<>Loading...</>}>
         <LaunchList query={query} filter={filter}/>
       </Suspense>
     </main>
