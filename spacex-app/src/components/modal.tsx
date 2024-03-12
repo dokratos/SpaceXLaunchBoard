@@ -33,14 +33,15 @@ const LaunchModal = () => {
     }
   });
 
-  if (id && loading || id && !data) {
-    return <p>Loading...</p>
-  }
-
   if (id && error) {
     console.error(error);
     if (error) return <p>An error occurred</p>;
   }
+  
+  if (id && loading || id && !data) {
+    return <p>Loading...</p>
+  }
+
  
   return (
     <Suspense fallback={<>Loading...</>}>
